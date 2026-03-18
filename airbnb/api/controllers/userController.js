@@ -85,7 +85,7 @@ exports.googleLogin = async (req, res) => {
     const { name, email } = req.body;
 
     if (!name || !email) {
-      return res.status(400), json({
+      return res.status(400). json({
         message: 'Name and email are required'
       })
     }
@@ -136,7 +136,7 @@ exports.updateUserDetails = async (req, res) => {
     const user = await User.findOne({ email })
 
     if (!user) {
-      return res.status(404), json({
+      return res.status(404). json({
         message: 'User not found'
       })
     }
@@ -164,8 +164,8 @@ exports.logout = async (req, res) => {
   res.cookie('token', null, {
     expires: new Date(Date.now()),
     httpOnly: true,
-    secure: true,   // Only send over HTTPS
-    sameSite: 'none' // Allow cross-origin requests
+    secure: false,   // Only send over HTTPS
+    sameSite: 'lax' // Allow cross-origin requests
   });
   res.status(200).json({
     success: true,
