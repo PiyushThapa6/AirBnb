@@ -22,11 +22,11 @@ import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   useEffect(() => {
-    // set the token on refreshing the website
-    axiosInstance.defaults.headers.common[
-      'Authorization'
-    ] = `Bearer ${getItemFromLocalStorage('token')}`;
-  }, []);
+  const token = getItemFromLocalStorage('token');
+  if (token) {
+    axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
+}, []);
 
   return (
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
